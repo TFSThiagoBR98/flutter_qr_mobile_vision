@@ -41,10 +41,10 @@ class QrMobileVision {
 
   //Set target size before starting
   static Future<PreviewDetails> start({
-    @required int width,
-    @required int height,
-    @required QRCodeHandler qrCodeHandler,
-    List<BarcodeFormats> formats = _defaultBarcodeFormats,
+    required int width,
+    required int height,
+    required QRCodeHandler qrCodeHandler,
+    List<BarcodeFormats>? formats = _defaultBarcodeFormats,
   }) async {
     final _formats = formats ?? _defaultBarcodeFormats;
     assert(_formats.length > 0);
@@ -82,7 +82,7 @@ class QrMobileVision {
     return _channel.invokeMethod('heartbeat').catchError(print);
   }
 
-  static Future<List<List<int>>> getSupportedSizes() {
+  static Future getSupportedSizes() {
     return _channel.invokeMethod('getSupportedSizes').catchError(print);
   }
 }
@@ -98,7 +98,7 @@ class QrChannelReader {
         case 'qrRead':
           if (qrCodeHandler != null) {
             assert(call.arguments is String);
-            qrCodeHandler(call.arguments);
+            qrCodeHandler!(call.arguments);
           }
           break;
         default:
@@ -108,10 +108,10 @@ class QrChannelReader {
     });
   }
 
-  void setQrCodeHandler(QRCodeHandler qrch) {
+  void setQrCodeHandler(QRCodeHandler? qrch) {
     this.qrCodeHandler = qrch;
   }
 
   MethodChannel channel;
-  QRCodeHandler qrCodeHandler;
+  QRCodeHandler? qrCodeHandler;
 }
