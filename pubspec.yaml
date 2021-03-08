@@ -7,6 +7,8 @@ environment:
   sdk: ">=2.12.0-0 <3.0.0"
   flutter: ">=1.25.0-8.1.pre <2.0.0"
 
+publish_to: "none"
+
 flutter:
   plugin:
     platforms:
@@ -19,4 +21,7 @@ flutter:
 dependencies:
   flutter:
     sdk: flutter
-  native_device_orientation: "^0.5.0-nullsafety.0"
+  native_device_orientation:
+    git:
+      url: https://github.com/TFSThiagoBR98/flutter_native_device_orientation
+      ref: nullsafety-patch
